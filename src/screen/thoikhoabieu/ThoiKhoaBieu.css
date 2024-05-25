@@ -1,8 +1,12 @@
 
-body {
+.body {
     font-family: Arial, sans-serif;
     text-align: center;
+    
+    position: relative;
+    top: 50px;
 }
+
 
 .container {
     /* flex-direction: column; */
@@ -66,11 +70,17 @@ h1 {
   border: 1px solid rgb(156, 155, 155);
 }
 .trTHTKB td{
-  padding: 5px;
+  padding: 5px; 
   width: 100%;
   text-align: center;
   height: auto;
   min-height: 100px;
   border: 1px solid rgb(156, 155, 155);
+}
+.class-info {
+  border: 1px ridge; /* Thêm border cho các class-info */
+  padding: 5px; /* Thêm padding để hiển thị border rõ ràng */
+  margin-bottom: 5px; /* Khoảng cách giữa các môn học */
+  font-size: 12px; /* Chỉnh cỡ chữ nhỏ lại */
 }
 

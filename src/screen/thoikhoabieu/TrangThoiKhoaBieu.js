@@ -3,13 +3,13 @@ import "./ThoiKhoaBieu.css";
 import ThoiKhoaBieu from "./ThoiKhoaBieu";
 
 function TrangThoiKhoaBieu() {
-  const [action, setAction] = React.useState("present");
+  const [action, setAction] = React.useState("");
   const handle = (action) => {
     setAction(action);
   }
 
   return (
-    <div className="body" style={{display:"block"}}>
+    <div className="body" style={{display:"block", position:"static"}}>
       <h1>Thời khóa biểu</h1>
         <tr  style={{width:"100%", textAlign:"end"}}>
           <button className="btnTKB" 

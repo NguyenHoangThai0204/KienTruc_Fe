@@ -134,7 +134,7 @@ function TrangChu() {
         </div>
         <div className="containPlan">
           <h4 style={{fontSize:"22px"}}>TIẾN ĐỘ HỌC TẬP</h4>
-          <NestedCircles innerPercent={80} outerPercent={156} /> 
+          <NestedCircles innerPercent={100} outerPercent={156} /> 
         </div>
       </div>
       <div className="footer">
