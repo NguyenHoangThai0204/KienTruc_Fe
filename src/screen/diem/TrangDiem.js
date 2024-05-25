@@ -1,31 +1,45 @@
 import React, { useState, useEffect } from "react";
-import Papa from "papaparse";
 import "./TrangDiem.css";
-
+import { getApiDiem } from "../../api/Api";
+import img from "../../image/tich.jpg";
+import img1 from "../../image/no.jpg";
 function TrangDiem() {
-  const [csvData, setCsvData] = useState([]); // State to hold parsed CSV data
+  const getQueryParam = (param) => {
+    const urlParams = new URLSearchParams(window.location.search);
+    return urlParams.get(param);
+  };
+  const maSV = getQueryParam("maSV");
+
+  const [csvData, setCsvData] = useState([]);
 
   useEffect(() => {
-    // Read CSV file on component mount
-    Papa.parse("./FileMauDiem.csv", {
-      header: true, // Enable header row parsing
-      complete: (result) => {
-        setCsvData(result.data); // Update state with parsed data
-      },
-    });
-  }, []);
+    const fetchData = async () => {
+      try {
+        const res = await getApiDiem(`/getDiemByMaSV/${maSV}`, { id: maSV });
+        console.log("res.data.data:", res.data.data);
+        setCsvData(res.data.data);
+      } catch (error) {
+        console.error("Lỗi khi lấy dữ liệu:", error);
+        alert("Lỗi khi lấy dữ liệu: " + error.message);
+      }
+    };
+    if (maSV) {
+      fetchData();
+    }
+  }, [maSV]);
 
   return (
-    <div className="body">
+    <div className="bodyDiem">
       <h1>Điểm môn học</h1>
       <table className="table">
         <thead>
           <tr>
             <th rowSpan="2">STT</th>
-            <th rowSpan="2">Mã môn học</th>
-            <th rowSpan="2">Tên môn học</th>
-            <th colSpan="5">Điểm lí thuyết</th>
-            <th colSpan="5">Điểm thực hành</th>
+            <th style={{ width: "150px" }} rowSpan="2">Mã lớp</th>
+            <th style={{ width: "250px" }} rowSpan="2">Tên môn học</th>
+            <th style={{ width: "150px" }} rowSpan="2">Số tín chỉ</th>
+            <th colSpan="5" style={{ width: "300px" }}>Điểm lý thuyết</th>
+            <th colSpan="5" style={{ width: "300px" }}>Điểm thực hành</th>
             <th rowSpan="2">Điểm GK</th>
             <th rowSpan="2">Điểm CK</th>
             <th rowSpan="2">Điểm tổng kết</th>
@@ -51,25 +65,26 @@ function TrangDiem() {
           {csvData.map((row, index) => (
             <tr key={index} className="trBodyDiem">
               <td>{index + 1}</td>
-              <td>{row["Mã môn học"]}</td>
-              <td>{row["Tên môn học"]}</td>
-              <td>{row["Điểm lí thuyết 1"]}</td>
-              <td>{row["Điểm lí thuyết 2"]}</td>
-              <td>{row["Điểm lí thuyết 3"]}</td>
-              <td>{row["Điểm lí thuyết 4"]}</td>
-              <td>{row["Điểm lí thuyết 5"]}</td>
-              <td>{row["Điểm thực hành 1"]}</td>
-              <td>{row["Điểm thực hành 2"]}</td>
-              <td>{row["Điểm thực hành 3"]}</td>
-              <td>{row["Điểm thực hành 4"]}</td>
-              <td>{row["Điểm thực hành 5"]}</td>
-              <td>{row["Điểm GK"]}</td>
-              <td>{row["Điểm CK"]}</td>
-              <td>{row["Điểm tổng kết"]}</td>
-              <td>{row["Điểm 4"]}</td>
-              <td>{row["Điểm chữ"]}</td>
-              <td>{row["Xếp loại"]}</td>
-              <td>{row["Đạt"]}</td>
+              <td>{row.maLopHocPhan}</td>
+              <td>{row.tenMonHoc}</td>
+              <td>{row.soTC}</td>
+              <td>{row.diemLT?.[0] ?? ''}</td>
+              <td>{row.diemLT?.[1] ?? ''}</td>
+              <td>{row.diemLT?.[2] ?? ''}</td>
+              <td>{row.diemLT?.[3] ?? ''}</td>
+              <td>{row.diemLT?.[4] ?? ''}</td>
+              <td>{row.diemTH?.[0] ?? ''}</td>
+              <td>{row.diemTH?.[1] ?? ''}</td>
+              <td>{row.diemTH?.[2] ?? ''}</td>
+              <td>{row.diemTH?.[3] ?? ''}</td>
+              <td>{row.diemTH?.[4] ?? ''}</td>
+              <td>{row.diemGK}</td>
+              <td>{row.diemCK}</td>
+              <td>{row.diemTongKet}</td>
+              <td>{row.diem4}</td>
+              <td>{row.diemChu}</td>
+              <td>{row.xepLoai}</td>
+              <td>{row.dat ?  <img src={img} alt="Tích" />  : <img src={img1} alt="no" />}</td>
             </tr>
           ))}
         </tbody>

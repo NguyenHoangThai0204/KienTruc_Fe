@@ -12,6 +12,13 @@ var apiUser = axios.create({
     baseURL: "http://localhost:3001/api/user",
 });
 
+var apiDiem = axios.create({
+    baseURL: "http://localhost:3001/api/diem",
+});
+
+export const getApiDiem = (url, data) => {
+    return apiDiem.get(url, data);
+}
 export const getApiUser = (url, data) => {
     return apiUser.get(url, data);
 }

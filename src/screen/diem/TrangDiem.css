@@ -3,22 +3,24 @@
     padding: 0;
     box-sizing: border-box;
 }
-.body{
+.bodyDiem{
     display: flex;
     padding: 10px;
     overflow: scroll;
     align-items: center;
     flex-direction: column;
+    width: fit-content;
     justify-content: flex-start ;
 }
 .table{
     width: 100%;
     border-collapse: collapse;
     margin-top: 20px;
+    table-layout: fixed;
 }
-th{
-    border: 1px solid #000;
-    width: max-content;
+.table th{
+    border: 1px solid #7c7979;
+    width: 70px;
 }
 .trBodyDiem td{
     border: 1px solid #000;

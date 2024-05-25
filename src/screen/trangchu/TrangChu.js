@@ -20,7 +20,7 @@ function TrangChu() {
   const [bacDT, setBacDT] = useState("");
   const [loaiDT, setLoaiDT] = useState("");
   const [nganh, setNganh] = useState("");
-
+  const [avatar, setAvatar] = useState("");
   useEffect(() => {
     const loadInfor = async () => {
       try {
@@ -35,6 +35,7 @@ function TrangChu() {
         setBacDT(res.data.data.bacDaoTao);
         setLoaiDT(res.data.data.loaiHinhDaoTao);
         setNganh(res.data.data.nganh);
+        setAvatar(res.data.data.avatar);
       } catch (error) {
         console.error("Error while fetching data:", error);
         alert("Error while fetching data: " + error.message);
@@ -55,7 +56,7 @@ function TrangChu() {
   };
 
   const handlePoint = () => {
-    window.location.href = "/diemmonhoc";
+    window.location.href = `/diemmonhoc?maSV=${maSV}`;
   };
 
   const handleCongNo = () => {
@@ -67,18 +68,18 @@ function TrangChu() {
   }
 
   return (
-    <div className="body" style={{ display: "flex", alignItems: "baseline", overflow:"scroll" }}>
+    <div className="body" style={{ display: "block", alignItems: "baseline", overflow:"scroll" }}>
       <div className="container">
         <div className="containLeft">
           <div className="containLeftTop">
             <h3>THÔNG TIN SINH VIÊN</h3>
           </div>
           <div className="containLeftBottom">
-            <div className="avatar"></div>
+            <img src={avatar} alt="avatar" className="avatar"/>
           </div>
         </div>
         <div className="containRight">
-          <table style={{ width: "100%", height: "100%" }}>
+          <table style={{ width: "100%", height: "100%", textAlign:"start" }}>
             <tr className="row">
               <td>
                 <label>MSSV: </label>
